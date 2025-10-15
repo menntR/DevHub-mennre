@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHub Pro - Ресурсы для разработчиков</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f43f5e;
+            --accent: #10b981;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #cbd5e1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --sidebar-width: 300px;
+            --header-height: 80px;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            height: var(--header-height);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: var(--dark-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            transform: rotate(30deg);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            position: sticky;
+            top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .sidebar-section {
+            margin-bottom: 0;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .category-btn {
+            padding: 1rem 1.25rem;
+            border-radius: var(--border-radius);
+            background: transparent;
+            border: none;
+            color: var(--light);
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: var(--transition);
+        }
+
+        .category-btn:hover::before {
+            left: 100%;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .category-btn i {
+            width: 22px;
+            text-align: center;
+        }
+
+        .tag-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag-filter {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            font-weight: 500;
+        }
+
+        .tag-filter:hover, .tag-filter.active {
+            background: rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-card);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1.25rem 1.75rem;
+            border-radius: var(--border-radius-lg);
+            border: none;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--light);
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .filters-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            background: rgba(30, 41, 59, 0.7);
+            padding: 1.5rem 2rem;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .sort-select {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 0.25rem;
+        }
+
+        .view-btn {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .resources-count {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .resources-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .resource-card.list-view {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .resource-card.list-view .resource-icon {
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+
+        .resource-card.list-view .resource-content {
+            flex: 1;
+        }
+
+        .resource-card.list-view .resource-actions {
+            flex-shrink: 0;
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .resource-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .resource-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .resource-category {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--light);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .resource-link {
+            display: inline-block;
+            padding: 0.9rem 1.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+        }
+
+        .resource-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .resource-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tag:hover {
+            background: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 4rem;
+            color: var(--gray);
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .no-results h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .chat-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .message {
+            padding: 1rem 1.25rem;
+            border-radius: var(--border-radius);
+            max-width: 80%;
+            position: relative;
+            animation: messageAppear 0.3s ease;
+        }
+
+        @keyframes messageAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.own {
+            align-self: flex-end;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .message.other {
+            align-self: flex-start;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message-sender {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .message-text {
+            line-height: 1.5;
+            font-size: 1.05rem;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .chat-input-container {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .chat-send {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--dark-light);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 550px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: modalFadeIn 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-size: 1.7rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--light);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.8);
+            color: var(--light);
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 1.75rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1.25rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+            font-size: 1.05rem;
+        }
+
+        .auth-tab.active {
+            color: var(--primary-light);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background: var(--dark-light);
+            color: var(--light);
+            padding: 1.25rem 1.75rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            z-index: 3000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+        }
+
+        /* Tabs for Resources/Chat */
+        .content-tabs {
+            display: flex;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius-lg);
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .content-tab {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+            font-size: 1.05rem;
+        }
+
+        .content-tab.active {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary-light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .resources-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 2rem;
+            }
+            
+            .categories {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .category-btn {
+                flex: 1;
+                min-width: 180px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filters-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+                height: auto;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .message {
+                max-width: 90%;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .main-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .resource-card.list-view {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .resource-card.list-view .resource-actions {
+                align-self: flex-end;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
+
+            .sidebar {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Light theme */
+        body.light-theme {
+            background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
+            color: #334155;
+        }
+
+        body.light-theme .sidebar,
+        body.light-theme .stat-card,
+        body.light-theme .search-box,
+        body.light-theme .resource-card,
+        body.light-theme .modal-content,
+        body.light-theme .toast,
+        body.light-theme .chat-section,
+        body.light-theme .filters-bar,
+        body.light-theme .content-tabs {
+            background: rgba(255, 255, 255, 0.9);
+            color: #334155;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme header {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .category-btn,
+        body.light-theme .action-btn,
+        body.light-theme .theme-toggle,
+        body.light-theme .btn-secondary {
+            background: rgba(0, 0, 0, 0.05);
+            color: #334155;
+        }
+
+        body.light-theme .category-btn:hover,
+        body.light-theme .category-btn.active,
+        body.light-theme .action-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        body.light-theme .resource-description,
+        body.light-theme .stat-label,
+        body.light-theme .resources-count,
+        body.light-theme .sidebar-title,
+        body.light-theme footer {
+            color: #64748b;
+        }
+
+        body.light-theme .search-box,
+        body.light-theme .form-input,
+        body.light-theme .form-textarea,
+        body.light-theme .form-select,
+        body.light-theme .sort-select,
+        body.light-theme .chat-input {
+            background: rgba(255, 255, 255, 0.9);
+            color: #334155;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .tag,
+        body.light-theme .resource-category,
+        body.light-theme .tag-filter {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        body.light-theme .message.own {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        body.light-theme .message.other {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <h1>DevHub Pro</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-section">
+                        <div class="user-avatar" id="userAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-th-large"></i> КАТЕГОРИИ</h3>
+                <div class="categories" id="categoriesList">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-tags"></i> ПОПУЛЯРНЫЕ ТЕГИ</h3>
+                <div class="tag-filters" id="popularTags">
+                    <!-- Popular tags will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><i class="fas fa-fire"></i> ТОП РЕСУРСЫ</h3>
+                <div class="top-resources" id="topResources">
+                    <!-- Top resources will be populated by JavaScript -->
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-tabs">
+                <button class="content-tab active" data-tab="resources">Ресурсы</button>
+                <button class="content-tab" data-tab="chat">Общий чат</button>
+            </div>
+
+            <div class="tab-content active" id="resourcesTab">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-value" id="totalResources">0</div>
+                        <div class="stat-label">Всего ресурсов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-value" id="programmingResources">0</div>
+                        <div class="stat-label">Программирование</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="stat-value" id="toolResources">0</div>
+                        <div class="stat-label">Инструменты</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value" id="communityResources">0</div>
+                        <div class="stat-label">Сообщества</div>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="search-box" id="searchInput" placeholder="Поиск по названию, описанию или тегам...">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="filters-bar">
+                    <div class="sort-options">
+                        <select class="sort-select" id="sortSelect">
+                            <option value="name-asc">По имени (А-Я)</option>
+                            <option value="name-desc">По имени (Я-А)</option>
+                            <option value="category">По категории</option>
+                            <option value="newest">Сначала новые</option>
+                            <option value="popular">По популярности</option>
+                        </select>
+                        
+                        <div class="view-toggle">
+                            <button class="view-btn active" id="gridViewBtn" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" id="listViewBtn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="resources-count">
+                        Найдено: <span id="resourcesCount">0</span> ресурсов
+                    </div>
+                </div>
+
+                <div class="resources-grid" id="resourcesContainer">
+                    <!-- Resources will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="chatTab">
+                <div class="chat-section">
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <i class="fas fa-comments"></i>
+                            Общий чат разработчиков
+                        </div>
+                        <div class="chat-users">
+                            <span id="onlineCount">0</span> <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Chat messages will be populated by JavaScript -->
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Введите сообщение...">
+                        <button class="chat-send" id="chatSend">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Вход в DevHub Pro</h2>
+                <button class="modal-close" id="closeAuthModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Вход</button>
+                    <button class="auth-tab" data-tab="register">Регистрация</button>
+                </div>
+                
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label class="form-label" for="loginUsername">Имя пользователя</label>
+                        <input type="text" class="form-input" id="loginUsername" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Пароль</label>
+                        <input type="password" class="form-input" id="loginPassword" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </div>
+                </form>
+                
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="registerUsername">Имя пользователя</label>
+                        <input type="text" class="form-input" id="registerUsername" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="registerPassword">Пароль</label>
+                        <input type="password" class="form-input" id="registerPassword" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="registerConfirmPassword">Подтвердите пароль</label>
+                        <input type="password" class="form-input" id="registerConfirmPassword" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message" id="toastMessage">Ресурс успешно добавлен!</div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>DevHub Pro &copy; 2023 - Все ресурсы для разработчиков в одном месте</p>
+        </div>
+    </footer>
+
+    <script>
+        // Полный список из 70 ресурсов
+        const resources = [
+            {
+                id: 1,
+                title: "MDN Web Docs",
+                description: "Полная документация по веб-технологиям: HTML, CSS, JavaScript и многое другое.",
+                url: "https://developer.mozilla.org",
+                icon: "fas fa-book",
+                category: "reference",
+                tags: ["документация", "HTML", "CSS", "JavaScript", "веб"],
+                featured: true,
+                rating: 5
+            },
+            {
+                id: 2,
+                title: "Stack Overflow",
+                description: "Крупнейшее сообщество разработчиков, где можно найти ответы на любые вопросы.",
+                url: "https://stackoverflow.com",
+                icon: "fas fa-layer-group",
+                category: "community",
+                tags: ["вопросы", "ответы", "сообщество", "помощь"],
+                featured: true,
+                rating: 5
+            },
+            {
+                id: 3,
+                title: "GitHub",
+                description: "Крупнейшая платформа для хостинга IT-проектов и совместной разработки.",
+                url: "https://github.com",
+                icon: "fab fa-github",
+                category: "tools",
+                tags: ["Git", "репозитории", "код", "open source"],
+                featured: true,
+                rating: 5
+            },
+            {
+                id: 4,
+                title: "freeCodeCamp",
+                description: "Бесплатные курсы по программированию с практическими проектами.",
+                url: "https://www.freecodecamp.org",
+                icon: "fas fa-laptop-code",
+                category: "learning",
+                tags: ["курсы", "обучение", "проекты", "бесплатно"],
+                featured: true,
+                rating: 4
+            },
+            {
+                id: 5,
+                title: "CodePen",
+                description: "Онлайн-редактор для фронтенд-разработки с мгновенным предпросмотром.",
+                url: "https://codepen.io",
+                icon: "fas fa-pen",
+                category: "tools",
+                tags: ["песочница", "HTML", "CSS", "JavaScript", "фронтенд"],
+                rating: 4
+            },
+            {
+                id: 6,
+                title: "CSS-Tricks",
+                description: "Статьи, руководства и советы по современным техникам CSS и веб-разработки.",
+                url: "https://css-tricks.com",
+                icon: "fas fa-palette",
+                category: "reference",
+                tags: ["CSS", "дизайн", "статьи", "руководства"],
+                rating: 4
+            },
+            {
+                id: 7,
+                title: "Dev.to",
+                description: "Сообщество разработчиков, где делятся знаниями и опытом.",
+                url: "https://dev.to",
+                icon: "fas fa-users",
+                category: "community",
+                tags: ["блоги", "сообщество", "статьи", "обсуждения"],
+                rating: 4
+            },
+            {
+                id: 8,
+                title: "LeetCode",
+                description: "Платформа для подготовки к техническим собеседованиям через решение задач.",
+                url: "https://leetcode.com",
+                icon: "fas fa-brain",
+                category: "learning",
+                tags: ["алгоритмы", "интервью", "задачи", "подготовка"],
+                rating: 4
+            },
+            {
+                id: 9,
+                title: "Can I use",
+                description: "Совместимость веб-технологий в различных браузерах.",
+                url: "https://caniuse.com",
+                icon: "fas fa-check-circle",
+                category: "reference",
+                tags: ["браузеры", "совместимость", "веб", "поддержка"],
+                rating: 4
+            },
+            {
+                id: 10,
+                title: "Codewars",
+                description: "Улучшайте навыки программирования, решая задачи и изучая решения других.",
+                url: "https://www.codewars.com",
+                icon: "fas fa-code",
+                category: "learning",
+                tags: ["задачи", "практика", "алгоритмы", "рейтинг"],
+                rating: 4
+            },
+            {
+                id: 11,
+                title: "Figma",
+                description: "Инструмент для дизайна интерфейсов и прототипирования с совместной работой.",
+                url: "https://www.figma.com",
+                icon: "fas fa-paint-brush",
+                category: "tools",
+                tags: ["дизайн", "UI/UX", "прототипы", "коллаборация"],
+                rating: 4
+            },
+            {
+                id: 12,
+                title: "Habr",
+                description: "Крупнейший русскоязычный ресурс для IT-специалистов и разработчиков.",
+                url: "https://habr.com",
+                icon: "fas fa-newspaper",
+                category: "community",
+                tags: ["статьи", "новости", "IT", "сообщество"],
+                rating: 4
+            },
+            {
+                id: 13,
+                title: "W3Schools",
+                description: "Онлайн-учебник по веб-технологиям с интерактивными примерами.",
+                url: "https://www.w3schools.com",
+                icon: "fas fa-graduation-cap",
+                category: "learning",
+                tags: ["учебник", "HTML", "CSS", "JavaScript", "примеры"],
+                rating: 3
+            },
+            {
+                id: 14,
+                title: "Codecademy",
+                description: "Интерактивная платформа для обучения программированию.",
+                url: "https://www.codecademy.com",
+                icon: "fas fa-laptop",
+                category: "learning",
+                tags: ["курсы", "интерактив", "программирование", "обучение"],
+                rating: 4
+            },
+            {
+                id: 15,
+                title: "Udemy",
+                description: "Платформа с курсами по программированию и другим темам.",
+                url: "https://www.udemy.com",
+                icon: "fas fa-video",
+                category: "learning",
+                tags: ["курсы", "видео", "обучение", "разработка"],
+                rating: 4
+            },
+            {
+                id: 16,
+                title: "Coursera",
+                description: "Онлайн-курсы от ведущих университетов и компаний.",
+                url: "https://www.coursera.org",
+                icon: "fas fa-university",
+                category: "learning",
+                tags: ["курсы", "университеты", "сертификаты", "образование"],
+                rating: 4
+            },
+            {
+                id: 17,
+                title: "GitLab",
+                description: "Платформа для DevOps с возможностями CI/CD.",
+                url: "https://about.gitlab.com",
+                icon: "fab fa-gitlab",
+                category: "tools",
+                tags: ["Git", "CI/CD", "DevOps", "репозитории"],
+                rating: 4
+            },
+            {
+                id: 18,
+                title: "Bitbucket",
+                description: "Веб-сервис для хостинга проектов и совместной разработки.",
+                url: "https://bitbucket.org",
+                icon: "fab fa-bitbucket",
+                category: "tools",
+                tags: ["Git", "репозитории", "команда", "разработка"],
+                rating: 3
+            },
+            {
+                id: 19,
+                title: "Visual Studio Code",
+                description: "Бесплатный редактор кода с широкими возможностями расширения.",
+                url: "https://code.visualstudio.com",
+                icon: "fas fa-code",
+                category: "tools",
+                tags: ["редактор", "код", "расширения", "бесплатно"],
+                rating: 5
+            },
+            {
+                id: 20,
+                title: "Sublime Text",
+                description: "Быстрый и мощный текстовый редактор для кода.",
+                url: "https://www.sublimetext.com",
+                icon: "fas fa-file-code",
+                category: "tools",
+                tags: ["редактор", "код", "производительность", "плагины"],
+                rating: 4
+            },
+            {
+                id: 21,
+                title: "Atom",
+                description: "Хакерский текстовый редактор от GitHub.",
+                url: "https://atom.io",
+                icon: "fas fa-atom",
+                category: "tools",
+                tags: ["редактор", "код", "GitHub", "кастомизация"],
+                rating: 3
+            },
+            {
+                id: 22,
+                title: "Notion",
+                description: "Мощный инструмент для организации работы и ведения заметок.",
+                url: "https://www.notion.so",
+                icon: "fas fa-sticky-note",
+                category: "tools",
+                tags: ["организация", "заметки", "планирование", "проекты"],
+                rating: 4
+            },
+            {
+                id: 23,
+                title: "Trello",
+                description: "Визуальный инструмент для управления проектами и задачами.",
+                url: "https://trello.com",
+                icon: "fas fa-list-alt",
+                category: "tools",
+                tags: ["проекты", "задачи", "организация", "команда"],
+                rating: 4
+            },
+            {
+                id: 24,
+                title: "Slack",
+                description: "Популярный мессенджер для командной работы.",
+                url: "https://slack.com",
+                icon: "fab fa-slack",
+                category: "tools",
+                tags: ["коммуникация", "команда", "сообщения", "интеграции"],
+                rating: 4
+            },
+            {
+                id: 25,
+                title: "Discord",
+                description: "Платформа для общения с голосовыми каналами и сообществами.",
+                url: "https://discord.com",
+                icon: "fab fa-discord",
+                category: "community",
+                tags: ["общение", "сообщество", "голос", "каналы"],
+                rating: 4
+            },
+            {
+                id: 26,
+                title: "Reddit",
+                description: "Социальная платформа с сообществами по программированию.",
+                url: "https://www.reddit.com",
+                icon: "fab fa-reddit",
+                category: "community",
+                tags: ["сообщество", "обсуждения", "новости", "помощь"],
+                rating: 4
+            },
+            {
+                id: 27,
+                title: "Hacker News",
+                description: "Социальный новостной сайт о компьютерах и предпринимательстве.",
+                url: "https://news.ycombinator.com",
+                icon: "fas fa-newspaper",
+                category: "community",
+                tags: ["новости", "технологии", "стартапы", "IT"],
+                rating: 4
+            },
+            {
+                id: 28,
+                title: "Product Hunt",
+                description: "Платформа для открытия новых продуктов и технологий.",
+                url: "https://www.producthunt.com",
+                icon: "fas fa-rocket",
+                category: "community",
+                tags: ["продукты", "технологии", "инновации", "стартапы"],
+                rating: 4
+            },
+            {
+                id: 29,
+                title: "Dribbble",
+                description: "Сообщество дизайнеров для демонстрации работ и поиска вдохновения.",
+                url: "https://dribbble.com",
+                icon: "fas fa-basketball-ball",
+                category: "community",
+                tags: ["дизайн", "вдохновение", "портфолио", "UI/UX"],
+                rating: 4
+            },
+            {
+                id: 30,
+                title: "Behance",
+                description: "Платформа для демонстрации творческих работ и портфолио.",
+                url: "https://www.behance.net",
+                icon: "fab fa-behance",
+                category: "community",
+                tags: ["дизайн", "портфолио", "креатив", "вдохновение"],
+                rating: 4
+            },
+            {
+                id: 31,
+                title: "Laravel",
+                description: "PHP фреймворк для веб-приложений с элегантным синтаксисом.",
+                url: "https://laravel.com",
+                icon: "fab fa-laravel",
+                category: "frameworks",
+                tags: ["PHP", "фреймворк", "веб", "MVC"],
+                rating: 4
+            },
+            {
+                id: 32,
+                title: "React",
+                description: "JavaScript библиотека для создания пользовательских интерфейсов.",
+                url: "https://reactjs.org",
+                icon: "fab fa-react",
+                category: "frameworks",
+                tags: ["JavaScript", "UI", "компоненты", "фронтенд"],
+                rating: 5
+            },
+            {
+                id: 33,
+                title: "Vue.js",
+                description: "Прогрессивный фреймворк для создания пользовательских интерфейсов.",
+                url: "https://vuejs.org",
+                icon: "fab fa-vuejs",
+                category: "frameworks",
+                tags: ["JavaScript", "UI", "фреймворк", "фронтенд"],
+                rating: 4
+            },
+            {
+                id: 34,
+                title: "Angular",
+                description: "Платформа для построения мобильных и десктопных веб-приложений.",
+                url: "https://angular.io",
+                icon: "fab fa-angular",
+                category: "frameworks",
+                tags: ["JavaScript", "TypeScript", "фреймворк", "веб"],
+                rating: 4
+            },
+            {
+                id: 35,
+                title: "Django",
+                description: "Фреймворк для веб-приложений на Python, ориентированный на быстроту разработки.",
+                url: "https://www.djangoproject.com",
+                icon: "fas fa-leaf",
+                category: "frameworks",
+                tags: ["Python", "фреймворк", "веб", "MVT"],
+                rating: 4
+            },
+            {
+                id: 36,
+                title: "Flask",
+                description: "Микрофреймворк для веб-приложений на Python.",
+                url: "https://flask.palletsprojects.com",
+                icon: "fas fa-flask",
+                category: "frameworks",
+                tags: ["Python", "микрофреймворк", "веб", "легковесный"],
+                rating: 4
+            },
+            {
+                id: 37,
+                title: "Express.js",
+                description: "Минималистичный и гибкий фреймворк для веб-приложений Node.js.",
+                url: "https://expressjs.com",
+                icon: "fas fa-bolt",
+                category: "frameworks",
+                tags: ["JavaScript", "Node.js", "фреймворк", "веб"],
+                rating: 4
+            },
+            {
+                id: 38,
+                title: "Bootstrap",
+                description: "Популярный фреймворк для создания адаптивных и мобильных веб-сайтов.",
+                url: "https://getbootstrap.com",
+                icon: "fab fa-bootstrap",
+                category: "frameworks",
+                tags: ["CSS", "фреймворк", "адаптивность", "UI"],
+                rating: 4
+            },
+            {
+                id: 39,
+                title: "Tailwind CSS",
+                description: "CSS фреймворк для быстрой разработки пользовательских интерфейсов.",
+                url: "https://tailwindcss.com",
+                icon: "fas fa-wind",
+                category: "frameworks",
+                tags: ["CSS", "фреймворк", "утилиты", "UI"],
+                rating: 4
+            },
+            {
+                id: 40,
+                title: "Sass",
+                description: "Препроцессор CSS, расширяющий возможности стандартного CSS.",
+                url: "https://sass-lang.com",
+                icon: "fab fa-sass",
+                category: "tools",
+                tags: ["CSS", "препроцессор", "стили", "разработка"],
+                rating: 4
+            },
+            {
+                id: 41,
+                title: "Less",
+                description: "Препроцессор CSS, обеспечивающий динамическое поведение стилей.",
+                url: "http://lesscss.org",
+                icon: "fas fa-less",
+                category: "tools",
+                tags: ["CSS", "препроцессор", "стили", "разработка"],
+                rating: 3
+            },
+            {
+                id: 42,
+                title: "Webpack",
+                description: "Сборщик модулей для современных JavaScript приложений.",
+                url: "https://webpack.js.org",
+                icon: "fas fa-cube",
+                category: "tools",
+                tags: ["JavaScript", "сборка", "модули", "оптимизация"],
+                rating: 4
+            },
+            {
+                id: 43,
+                title: "Babel",
+                description: "Транспайлер JavaScript для совместимости с старыми браузерами.",
+                url: "https://babeljs.io",
+                icon: "fas fa-exchange-alt",
+                category: "tools",
+                tags: ["JavaScript", "транспиляция", "совместимость", "ES6"],
+                rating: 4
+            },
+            {
+                id: 44,
+                title: "ESLint",
+                description: "Инструмент для идентификации и исправления проблем в JavaScript коде.",
+                url: "https://eslint.org",
+                icon: "fas fa-check-double",
+                category: "tools",
+                tags: ["JavaScript", "линтер", "качество кода", "стиль"],
+                rating: 4
+            },
+            {
+                id: 45,
+                title: "Prettier",
+                description: "Инструмент для автоматического форматирования кода.",
+                url: "https://prettier.io",
+                icon: "fas fa-code",
+                category: "tools",
+                tags: ["форматирование", "код", "стиль", "автоматизация"],
+                rating: 4
+            },
+            {
+                id: 46,
+                title: "Jest",
+                description: "Фреймворк для тестирования JavaScript с акцентом на простоту.",
+                url: "https://jestjs.io",
+                icon: "fas fa-vial",
+                category: "tools",
+                tags: ["JavaScript", "тестирование", "unit-тесты", "фреймворк"],
+                rating: 4
+            },
+            {
+                id: 47,
+                title: "Cypress",
+                description: "Инструмент для end-to-end тестирования веб-приложений.",
+                url: "https://www.cypress.io",
+                icon: "fas fa-robot",
+                category: "tools",
+                tags: ["тестирование", "e2e", "веб", "автоматизация"],
+                rating: 4
+            },
+            {
+                id: 48,
+                title: "Docker",
+                description: "Платформа для разработки, доставки и запуска приложений в контейнерах.",
+                url: "https://www.docker.com",
+                icon: "fab fa-docker",
+                category: "tools",
+                tags: ["контейнеры", "развертывание", "DevOps", "инфраструктура"],
+                rating: 5
+            },
+            {
+                id: 49,
+                title: "Kubernetes",
+                description: "Система оркестрации контейнеризованных приложений.",
+                url: "https://kubernetes.io",
+                icon: "fas fa-ship",
+                category: "tools",
+                tags: ["оркестрация", "контейнеры", "масштабирование", "DevOps"],
+                rating: 4
+            },
+            {
+                id: 50,
+                title: "AWS",
+                description: "Облачная платформа от Amazon с широким спектром услуг.",
+                url: "https://aws.amazon.com",
+                icon: "fab fa-aws",
+                category: "tools",
+                tags: ["облако", "инфраструктура", "хостинг", "сервисы"],
+                rating: 5
+            },
+            {
+                id: 51,
+                title: "Google Cloud",
+                description: "Облачная платформа от Google с услугами для разработчиков.",
+                url: "https://cloud.google.com",
+                icon: "fab fa-google",
+                category: "tools",
+                tags: ["облако", "инфраструктура", "хостинг", "сервисы"],
+                rating: 4
+            },
+            {
+                id: 52,
+                title: "Microsoft Azure",
+                description: "Облачная платформа от Microsoft для разработки и развертывания приложений.",
+                url: "https://azure.microsoft.com",
+                icon: "fas fa-cloud",
+                category: "tools",
+                tags: ["облако", "инфраструктура", "хостинг", "сервисы"],
+                rating: 4
+            },
+            {
+                id: 53,
+                title: "Firebase",
+                description: "Платформа для разработки мобильных и веб-приложений от Google.",
+                url: "https://firebase.google.com",
+                icon: "fas fa-fire",
+                category: "tools",
+                tags: ["база данных", "хостинг", "аутентификация", "мобильные"],
+                rating: 4
+            },
+            {
+                id: 54,
+                title: "MongoDB",
+                description: "Документоориентированная система управления базами данных.",
+                url: "https://www.mongodb.com",
+                icon: "fas fa-database",
+                category: "tools",
+                tags: ["база данных", "NoSQL", "документы", "масштабирование"],
+                rating: 4
+            },
+            {
+                id: 55,
+                title: "PostgreSQL",
+                description: "Мощная объектно-реляционная система управления базами данных.",
+                url: "https://www.postgresql.org",
+                icon: "fas fa-database",
+                category: "tools",
+                tags: ["база данных", "SQL", "реляционная", "производительность"],
+                rating: 5
+            },
+            {
+                id: 56,
+                title: "MySQL",
+                description: "Одна из самых популярных систем управления реляционными базами данных.",
+                url: "https://www.mysql.com",
+                icon: "fas fa-database",
+                category: "tools",
+                tags: ["база данных", "SQL", "реляционная", "open source"],
+                rating: 4
+            },
+            {
+                id: 57,
+                title: "Redis",
+                description: "Хранилище структур данных в памяти, используемое как база данных, кэш и брокер сообщений.",
+                url: "https://redis.io",
+                icon: "fas fa-memory",
+                category: "tools",
+                tags: ["база данных", "кэш", "память", "ключ-значение"],
+                rating: 4
+            },
+            {
+                id: 58,
+                title: "GraphQL",
+                description: "Язык запросов для API и среда выполнения для их выполнения с существующими данными.",
+                url: "https://graphql.org",
+                icon: "fas fa-project-diagram",
+                category: "tools",
+                tags: ["API", "запросы", "данные", "типизация"],
+                rating: 4
+            },
+            {
+                id: 59,
+                title: "REST API",
+                description: "Архитектурный стиль для разработки веб-служб.",
+                url: "https://restfulapi.net",
+                icon: "fas fa-network-wired",
+                category: "reference",
+                tags: ["API", "архитектура", "веб-службы", "HTTP"],
+                rating: 4
+            },
+            {
+                id: 60,
+                title: "Postman",
+                description: "Платформа для разработки и тестирования API.",
+                url: "https://www.postman.com",
+                icon: "fas fa-paper-plane",
+                category: "tools",
+                tags: ["API", "тестирование", "разработка", "документация"],
+                rating: 4
+            },
+            {
+                id: 61,
+                title: "Jira",
+                description: "Инструмент для управления проектами и отслеживания задач.",
+                url: "https://www.atlassian.com/software/jira",
+                icon: "fab fa-jira",
+                category: "tools",
+                tags: ["проекты", "задачи", "управление", "команда"],
+                rating: 4
+            },
+            {
+                id: 62,
+                title: "Confluence",
+                description: "Платформа для совместной работы и ведения документации.",
+                url: "https://www.atlassian.com/software/confluence",
+                icon: "fas fa-file-alt",
+                category: "tools",
+                tags: ["документация", "сотрудничество", "вики", "команда"],
+                rating: 4
+            },
+            {
+                id: 63,
+                title: "Asana",
+                description: "Инструмент для управления задачами и проектами.",
+                url: "https://asana.com",
+                icon: "fas fa-tasks",
+                category: "tools",
+                tags: ["проекты", "задачи", "организация", "команда"],
+                rating: 4
+            },
+            {
+                id: 64,
+                title: "WebStorm",
+                description: "IDE для JavaScript и веб-разработки от JetBrains.",
+                url: "https://www.jetbrains.com/webstorm/",
+                icon: "fas fa-code",
+                category: "tools",
+                tags: ["IDE", "JavaScript", "веб", "редактор"],
+                rating: 5
+            },
+            {
+                id: 65,
+                title: "PyCharm",
+                description: "IDE для Python разработки от JetBrains.",
+                url: "https://www.jetbrains.com/pycharm/",
+                icon: "fab fa-python",
+                category: "tools",
+                tags: ["IDE", "Python", "разработка", "редактор"],
+                rating: 5
+            },
+            {
+                id: 66,
+                title: "IntelliJ IDEA",
+                description: "IDE для Java разработки от JetBrains.",
+                url: "https://www.jetbrains.com/idea/",
+                icon: "fab fa-java",
+                category: "tools",
+                tags: ["IDE", "Java", "разработка", "редактор"],
+                rating: 5
+            },
+            {
+                id: 67,
+                title: "PHPStorm",
+                description: "IDE для PHP разработки от JetBrains.",
+                url: "https://www.jetbrains.com/phpstorm/",
+                icon: "fab fa-php",
+                category: "tools",
+                tags: ["IDE", "PHP", "разработка", "редактор"],
+                rating: 5
+            },
+            {
+                id: 68,
+                title: "RubyMine",
+                description: "IDE для Ruby и Rails разработки от JetBrains.",
+                url: "https://www.jetbrains.com/ruby/",
+                icon: "fas fa-gem",
+                category: "tools",
+                tags: ["IDE", "Ruby", "Rails", "редактор"],
+                rating: 4
+            },
+            {
+                id: 69,
+                title: "GoLand",
+                description: "IDE для Go разработки от JetBrains.",
+                url: "https://www.jetbrains.com/go/",
+                icon: "fas fa-code",
+                category: "tools",
+                tags: ["IDE", "Go", "разработка", "редактор"],
+                rating: 4
+            },
+            {
+                id: 70,
+                title: "Rider",
+                description: "IDE для .NET разработки от JetBrains.",
+                url: "https://www.jetbrains.com/rider/",
+                icon: "fas fa-code",
+                category: "tools",
+                tags: ["IDE", ".NET", "C#", "редактор"],
+                rating: 4
+            }
+        ];
+
+        // Категории
+        const categories = [
+            { id: "all", name: "Все ресурсы", icon: "fas fa-th-large", count: 0 },
+            { id: "learning", name: "Обучение", icon: "fas fa-graduation-cap", count: 0 },
+            { id: "tools", name: "Инструменты", icon: "fas fa-tools", count: 0 },
+            { id: "reference", name: "Справочники", icon: "fas fa-book", count: 0 },
+            { id: "community", name: "Сообщества", icon: "fas fa-users", count: 0 },
+            { id: "frameworks", name: "Фреймворки", icon: "fas fa-cube", count: 0 }
+        ];
+
+        // Элементы DOM
+        const resourcesContainer = document.getElementById('resourcesContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const categoriesList = document.getElementById('categoriesList');
+        const popularTags = document.getElementById('popularTags');
+        const topResources = document.getElementById('topResources');
+        const sortSelect = document.getElementById('sortSelect');
+        const gridViewBtn = document.getElementById('gridViewBtn');
+        const listViewBtn = document.getElementById('listViewBtn');
+        const resourcesCount = document.getElementById('resourcesCount');
+        const userAvatar = document.getElementById('userAvatar');
+        const authModal = document.getElementById('authModal');
+        const closeAuthModalBtn = document.getElementById('closeAuthModalBtn');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const contentTabs = document.querySelectorAll('.content-tab');
+        const resourcesTab = document.getElementById('resourcesTab');
+        const chatTab = document.getElementById('chatTab');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const onlineCount = document.getElementById('onlineCount');
+        const themeToggle = document.getElementById('themeToggle');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // Статистика
+        const totalResourcesEl = document.getElementById('totalResources');
+        const programmingResourcesEl = document.getElementById('programmingResources');
+        const toolResourcesEl = document.getElementById('toolResources');
+        const communityResourcesEl = document.getElementById('communityResources');
+
+        // Текущее состояние
+        let currentState = {
+            category: 'all',
+            search: '',
+            sort: 'name-asc',
+            view: 'grid',
+            filteredResources: [],
+            favorites: JSON.parse(localStorage.getItem('devhubFavorites')) || [],
+            currentUser: JSON.parse(localStorage.getItem('devhubUser')) || null,
+            chatMessages: JSON.parse(localStorage.getItem('devhubChat')) || [],
+            onlineUsers: []
+        };
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+            setupEventListeners();
+            
+            // Проверяем авторизацию
+            if (!currentState.currentUser) {
+                authModal.style.display = 'flex';
+            }
+        });
+
+        // Инициализация приложения
+        function initApp() {
+            // Подсчет ресурсов по категориям
+            updateCategoryCounts();
+            
+            // Рендер категорий
+            renderCategories();
+            
+            // Рендер популярных тегов
+            renderPopularTags();
+            
+            // Рендер топ ресурсов
+            renderTopResources();
+            
+            // Рендер всех ресурсов
+            filterResources();
+            
+            // Обновление статистики
+            updateStats();
+            
+            // Обновление интерфейса пользователя
+            updateUserInterface();
+            
+            // Загрузка чата
+            renderChatMessages();
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            searchInput.addEventListener('input', handleSearch);
+            searchBtn.addEventListener('click', handleSearch);
+            
+            sortSelect.addEventListener('change', () => {
+                currentState.sort = sortSelect.value;
+                filterResources();
+            });
+            
+            gridViewBtn.addEventListener('click', () => switchView('grid'));
+            listViewBtn.addEventListener('click', () => switchView('list'));
+            
+            userAvatar.addEventListener('click', () => {
+                if (currentState.currentUser) {
+                    // Показать меню пользователя
+                    showUserMenu();
+                } else {
+                    authModal.style.display = 'flex';
+                }
+            });
+            
+            closeAuthModalBtn.addEventListener('click', closeAuthModal);
+            
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    document.querySelectorAll('.auth-form').forEach(form => {
+                        form.classList.remove('active');
+                    });
+                    
+                    document.getElementById(`${tabName}Form`).classList.add('active');
+                });
+            });
+            
+            contentTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    
+                    contentTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    document.getElementById(`${tabName}Tab`).classList.add('active');
+                });
+            });
+            
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            chatSend.addEventListener('click', sendMessage);
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Закрытие модальных окон при клике вне их
+            authModal.addEventListener('click', (e) => {
+                if (e.target === authModal) {
+                    closeAuthModal();
+                }
+            });
+        }
+
+        // Обновление счетчиков категорий
+        function updateCategoryCounts() {
+            categories.forEach(cat => {
+                if (cat.id === 'all') {
+                    cat.count = resources.length;
+                } else {
+                    cat.count = resources.filter(resource => resource.category === cat.id).length;
+                }
+            });
+        }
+
+        // Рендер категорий
+        function renderCategories() {
+            categoriesList.innerHTML = '';
+            
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = `category-btn ${currentState.category === category.id ? 'active' : ''}`;
+                button.innerHTML = `
+                    <i class="${category.icon}"></i>
+                    <span>${category.name}</span>
+                    <span style="margin-left: auto; font-size: 0.9rem; opacity: 0.7;">${category.count}</span>
+                `;
+                button.dataset.category = category.id;
+                
+                button.addEventListener('click', () => {
+                    currentState.category = category.id;
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    filterResources();
+                });
+                
+                categoriesList.appendChild(button);
+            });
+        }
+
+        // Рендер популярных тегов
+        function renderPopularTags() {
+            // Собираем все теги и считаем их популярность
+            const tagCounts = {};
+            resources.forEach(resource => {
+                resource.tags.forEach(tag => {
+                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                });
+            });
+            
+            // Сортируем теги по популярности и берем топ-10
+            const popularTagsList = Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10)
+                .map(entry => entry[0]);
+            
+            popularTags.innerHTML = '';
+            
+            popularTagsList.forEach(tag => {
+                const tagElement = document.createElement('div');
+                tagElement.className = 'tag-filter';
+                tagElement.textContent = tag;
+                
+                tagElement.addEventListener('click', () => {
+                    searchInput.value = tag;
+                    currentState.search = tag;
+                    filterResources();
+                });
+                
+                popularTags.appendChild(tagElement);
+            });
+        }
+
+        // Рендер топ ресурсов
+        function renderTopResources() {
+            // Берем ресурсы с рейтингом 5 и featured: true
+            const topRatedResources = resources
+                .filter(resource => resource.rating === 5 || resource.featured)
+                .slice(0, 5);
+            
+            topResources.innerHTML = '';
+            
+            topRatedResources.forEach(resource => {
+                const resourceElement = document.createElement('div');
+                resourceElement.className = 'resource-card';
+                resourceElement.style.marginBottom = '1.5rem';
+                resourceElement.style.padding = '1.5rem';
+                
+                resourceElement.innerHTML = `
+                    <div class="resource-title" style="font-size: 1.2rem; margin-bottom: 0.75rem;">
+                        <i class="${resource.icon}"></i>
+                        ${resource.title}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="resource-category">${getCategoryName(resource.category)}</span>
+                        <div class="resource-actions">
+                            <button class="action-btn favorite-btn" data-id="${resource.id}">
+                                <i class="fas fa-star" style="color: ${currentState.favorites.includes(resource.id) ? 'gold' : 'var(--gray)'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Обработчик для кнопки избранного
+                const favoriteBtn = resourceElement.querySelector('.favorite-btn');
+                favoriteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleFavorite(resource.id);
+                    favoriteBtn.querySelector('i').style.color = currentState.favorites.includes(resource.id) ? 'gold' : 'var(--gray)';
+                });
+                
+                // Обработчик для перехода к ресурсу
+                resourceElement.addEventListener('click', () => {
+                    window.open(resource.url, '_blank');
+                });
+                
+                topResources.appendChild(resourceElement);
+            });
+        }
+
+        // Получение имени категории по ID
+        function getCategoryName(categoryId) {
+            const category = categories.find(cat => cat.id === categoryId);
+            return category ? category.name : 'Другое';
+        }
+
+        // Обработка поиска
+        function handleSearch() {
+            currentState.search = searchInput.value.toLowerCase();
+            filterResources();
+        }
+
+        // Переключение вида (сетка/список)
+        function switchView(view) {
+            currentState.view = view;
+            
+            if (view === 'grid') {
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                resourcesContainer.classList.remove('resources-list');
+                resourcesContainer.classList.add('resources-grid');
+            } else {
+                gridViewBtn.classList.remove('active');
+                listViewBtn.classList.add('active');
+                resourcesContainer.classList.remove('resources-grid');
+                resourcesContainer.classList.add('resources-list');
+            }
+            
+            renderResources(currentState.filteredResources);
+        }
+
+        // Фильтрация ресурсов
+        function filterResources() {
+            let filtered = resources;
+            
+            // Фильтр по категории
+            if (currentState.category !== 'all') {
+                filtered = filtered.filter(resource => 
+                    resource.category === currentState.category
+                );
+            }
+            
+            // Фильтр по поисковому запросу
+            if (currentState.search) {
+                filtered = filtered.filter(resource => 
+                    resource.title.toLowerCase().includes(currentState.search) ||
+                    resource.description.toLowerCase().includes(currentState.search) ||
+                    resource.tags.some(tag => tag.toLowerCase().includes(currentState.search))
+                );
+            }
+            
+            // Сортировка
+            filtered = sortResources(filtered, currentState.sort);
+            
+            currentState.filteredResources = filtered;
+            renderResources(filtered);
+            
+            // Обновление счетчика
+            resourcesCount.textContent = filtered.length;
+        }
+
+        // Сортировка ресурсов
+        function sortResources(resources, sortBy) {
+            switch (sortBy) {
+                case 'name-asc':
+                    return [...resources].sort((a, b) => a.title.localeCompare(b.title));
+                case 'name-desc':
+                    return [...resources].sort((a, b) => b.title.localeCompare(a.title));
+                case 'category':
+                    return [...resources].sort((a, b) => {
+                        const catA = getCategoryName(a.category);
+                        const catB = getCategoryName(b.category);
+                        return catA.localeCompare(catB);
+                    });
+                case 'newest':
+                    return [...resources].sort((a, b) => b.id - a.id);
+                case 'popular':
+                    return [...resources].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+                default:
+                    return resources;
+            }
+        }
+
+        // Рендер ресурсов
+        function renderResources(resourcesToRender) {
+            resourcesContainer.innerHTML = '';
+            
+            if (resourcesToRender.length === 0) {
+                resourcesContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>Ресурсы не найдены</h3>
+                        <p>Попробуйте изменить поисковый запрос или выбрать другую категорию</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            resourcesToRender.forEach((resource, index) => {
+                const card = document.createElement('div');
+                card.className = `resource-card ${currentState.view === 'list' ? 'list-view' : ''} fade-in`;
+                card.style.animationDelay = `${index * 0.05}s`;
+                
+                card.innerHTML = `
+                    <div class="resource-icon">
+                        <i class="${resource.icon}"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">
+                            ${resource.title}
+                            ${resource.featured ? '<i class="fas fa-star" style="color: gold; font-size: 0.8em;"></i>' : ''}
+                        </h3>
+                        <p class="resource-description">${resource.description}</p>
+                        <div class="resource-meta">
+                            <span class="resource-category">${getCategoryName(resource.category)}</span>
+                            <div class="resource-rating">
+                                ${renderRatingStars(resource.rating)}
+                            </div>
+                        </div>
+                        <div class="resource-tags">
+                            ${resource.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <button class="action-btn favorite-btn" data-id="${resource.id}" title="Добавить в избранное">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button class="action-btn copy-btn" data-url="${resource.url}" title="Скопировать ссылку">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <a href="${resource.url}" target="_blank" class="resource-link">
+                            Перейти
+                        </a>
+                    </div>
+                `;
+                
+                // Обработчики для кнопок действий
+                const favoriteBtn = card.querySelector('.favorite-btn');
+                const copyBtn = card.querySelector('.copy-btn');
+                
+                favoriteBtn.addEventListener('click', () => {
+                    toggleFavorite(resource.id);
+                    updateFavoriteButton(favoriteBtn, resource.id);
+                });
+                
+                copyBtn.addEventListener('click', () => {
+                    copyToClipboard(resource.url);
+                    showToast('Ссылка скопирована в буфер обмена');
+                });
+                
+                // Обновляем состояние кнопки избранного
+                updateFavoriteButton(favoriteBtn, resource.id);
+                
+                resourcesContainer.appendChild(card);
+            });
+        }
+
+        // Рендер звезд рейтинга
+        function renderRatingStars(rating) {
+            if (!rating) return '';
+            
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<i class="fas fa-star" style="color: gold;"></i>';
+                } else {
+                    stars += '<i class="far fa-star" style="color: var(--gray);"></i>';
+                }
+            }
+            return stars;
+        }
+
+        // Переключение избранного
+        function toggleFavorite(resourceId) {
+            const index = currentState.favorites.indexOf(resourceId);
+            
+            if (index === -1) {
+                currentState.favorites.push(resourceId);
+                showToast('Ресурс добавлен в избранное');
+            } else {
+                currentState.favorites.splice(index, 1);
+                showToast('Ресурс удален из избранного');
+            }
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('devhubFavorites', JSON.stringify(currentState.favorites));
+            
+            // Обновляем топ ресурсы (могут измениться из-за избранного)
+            renderTopResources();
+        }
+
+        // Обновление кнопки избранного
+        function updateFavoriteButton(button, resourceId) {
+            const icon = button.querySelector('i');
+            if (currentState.favorites.includes(resourceId)) {
+                icon.className = 'fas fa-star';
+                icon.style.color = 'gold';
+                button.title = 'Удалить из избранного';
+            } else {
+                icon.className = 'far fa-star';
+                icon.style.color = 'var(--gray)';
+                button.title = 'Добавить в избранное';
+            }
+        }
+
+        // Копирование в буфер обмена
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).catch(err => {
+                console.error('Ошибка копирования: ', err);
+            });
+        }
+
+        // Показать уведомление
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Обработка входа
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Получаем пользователей из localStorage
+            const users = JSON.parse(localStorage.getItem('devhubUsers')) || [];
+            
+            // Проверяем пользователя
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentState.currentUser = user;
+                localStorage.setItem('devhubUser', JSON.stringify(user));
+                updateUserInterface();
+                closeAuthModal();
+                showToast(`Добро пожаловать, ${user.username}!`);
+            } else {
+                showToast('Неверное имя пользователя или пароль');
+            }
+        }
+
+        // Обработка регистрации
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            // Проверяем пароли
+            if (password !== confirmPassword) {
+                showToast('Пароли не совпадают');
+                return;
+            }
+            
+            // Получаем пользователей из localStorage
+            const users = JSON.parse(localStorage.getItem('devhubUsers')) || [];
+            
+            // Проверяем, существует ли пользователь
+            if (users.find(u => u.username === username)) {
+                showToast('Пользователь с таким именем уже существует');
+                return;
+            }
+            
+            // Создаем нового пользователя
+            const newUser = {
+                id: Date.now(),
+                username: username,
+                password: password
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('devhubUsers', JSON.stringify(users));
+            
+            currentState.currentUser = newUser;
+            localStorage.setItem('devhubUser', JSON.stringify(newUser));
+            updateUserInterface();
+            closeAuthModal();
+            showToast(`Добро пожаловать, ${newUser.username}!`);
+        }
+
+        // Закрытие модального окна авторизации
+        function closeAuthModal() {
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            loginForm.reset();
+            registerForm.reset();
+        }
+
+        // Обновление интерфейса пользователя
+        function updateUserInterface() {
+            if (currentState.currentUser) {
+                const firstLetter = currentState.currentUser.username.charAt(0).toUpperCase();
+                userAvatar.innerHTML = firstLetter;
+                userAvatar.title = currentState.currentUser.username;
+            } else {
+                userAvatar.innerHTML = '<i class="fas fa-user"></i>';
+                userAvatar.title = 'Войти';
+            }
+        }
+
+        // Показать меню пользователя
+        function showUserMenu() {
+            // Создаем простое контекстное меню
+            const menu = document.createElement('div');
+            menu.style.position = 'absolute';
+            menu.style.top = '70px';
+            menu.style.right = '20px';
+            menu.style.background = 'var(--dark-light)';
+            menu.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+            menu.style.borderRadius = 'var(--border-radius)';
+            menu.style.padding = '0.75rem';
+            menu.style.zIndex = '1000';
+            menu.style.boxShadow = 'var(--shadow)';
+            menu.style.backdropFilter = 'blur(10px)';
+            menu.style.minWidth = '200px';
+            
+            menu.innerHTML = `
+                <div style="padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-weight: 600;">
+                    ${currentState.currentUser.username}
+                </div>
+                <button id="logoutBtn" style="width: 100%; padding: 0.75rem 1rem; background: transparent; border: none; color: var(--light); text-align: left; cursor: pointer; border-radius: var(--border-radius); transition: var(--transition);">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 0.5rem;"></i> Выйти
+                </button>
+            `;
+            
+            document.body.appendChild(menu);
+            
+            // Обработчик для кнопки выхода
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('mouseenter', () => {
+                logoutBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+            logoutBtn.addEventListener('mouseleave', () => {
+                logoutBtn.style.background = 'transparent';
+            });
+            
+            logoutBtn.addEventListener('click', () => {
+                currentState.currentUser = null;
+                localStorage.removeItem('devhubUser');
+                updateUserInterface();
+                document.body.removeChild(menu);
+                authModal.style.display = 'flex';
+            });
+            
+            // Закрытие меню при клике вне его
+            setTimeout(() => {
+                const closeMenu = (e) => {
+                    if (!menu.contains(e.target) && e.target !== userAvatar) {
+                        document.body.removeChild(menu);
+                        document.removeEventListener('click', closeMenu);
+                    }
+                };
+                document.addEventListener('click', closeMenu);
+            }, 0);
+        }
+
+        // Отправка сообщения в чат
+        function sendMessage() {
+            if (!currentState.currentUser) {
+                showToast('Для отправки сообщений необходимо войти в систему');
+                return;
+            }
+            
+            const messageText = chatInput.value.trim();
+            if (!messageText) return;
+            
+            const newMessage = {
+                id: Date.now(),
+                username: currentState.currentUser.username,
+                text: messageText,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            
+            currentState.chatMessages.push(newMessage);
+            localStorage.setItem('devhubChat', JSON.stringify(currentState.chatMessages));
+            
+            renderChatMessages();
+            chatInput.value = '';
+            
+            // Прокрутка к последнему сообщению
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Рендер сообщений чата
+        function renderChatMessages() {
+            chatMessages.innerHTML = '';
+            
+            if (currentState.chatMessages.length === 0) {
+                chatMessages.innerHTML = `
+                    <div style="text-align: center; color: var(--gray); padding: 3rem;">
+                        <i class="fas fa-comments fa-3x" style="margin-bottom: 1.5rem; opacity: 0.5;"></i>
+                        <p style="font-size: 1.1rem;">Чат пуст. Будьте первым, кто оставит сообщение!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            currentState.chatMessages.forEach(message => {
+                const messageElement = document.createElement('div');
+                const isOwnMessage = currentState.currentUser && message.username === currentState.currentUser.username;
+                
+                messageElement.className = `message ${isOwnMessage ? 'own' : 'other'}`;
+                messageElement.innerHTML = `
+                    <div class="message-sender">${message.username}</div>
+                    <div class="message-text">${message.text}</div>
+                    <div class="message-time">${message.timestamp}</div>
+                `;
+                
+                chatMessages.appendChild(messageElement);
+            });
+            
+            // Прокрутка к последнему сообщению
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Обновление статистики
+        function updateStats() {
+            totalResourcesEl.textContent = resources.length;
+            programmingResourcesEl.textContent = resources.filter(r => 
+                r.category === 'learning' || r.category === 'frameworks'
+            ).length;
+            toolResourcesEl.textContent = resources.filter(r => 
+                r.category === 'tools'
+            ).length;
+            communityResourcesEl.textContent = resources.filter(r => 
+                r.category === 'community'
+            ).length;
+        }
+
+        // Переключение темы
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const icon = themeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('light-theme')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('devhubTheme', 'light');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('devhubTheme', 'dark');
+            }
+        }
+
+        // Проверка сохраненной темы при загрузке
+        const savedTheme = localStorage.getItem('devhubTheme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            themeToggle.querySelector('i').className = 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>
